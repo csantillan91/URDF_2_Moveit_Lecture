@@ -1,0 +1,54 @@
+# Obstacle scenes for the Part 2 planning lab.
+#
+# Each scene is a list of boxes added to the MoveIt planning scene as
+# CollisionObjects. Positions are the box CENTRE in base_link, in metres.
+# Sizes are full extents. rpy is roll/pitch/yaw in radians (optional).
+#
+#   ros2 run buzz_arm_planning_lab scene_objects list
+#   ros2 run buzz_arm_planning_lab scene_objects load bar
+#   ros2 run buzz_arm_planning_lab scene_objects clear
+#
+# Geometry you need to know (base_link frame, metres):
+#   - The Revolute_1 axis is at x = 0.134, y = 0.
+#   - At `home` the arm points straight up; tool0 is at (0.14, 0.00, 0.42).
+#   - At `reach_low` tool0 is at about (0.39, 0.15, 0.26) and the forearm
+#     lies low, crossing x = 0.26 at z = 0.17. Anything below z = 0.25 near
+#     x = 0.26 collides with the GOAL pose and move_group rejects the request
+#     before planning. Obstacles in the middle of the motion but above the
+#     goal pose are what make the planner work.
+#   - The straight joint-space path from home to reach_low carries tool0
+#     through roughly (0.28, 0.09, 0.38) halfway.
+#
+# Rule of thumb: keep obstacles at least 4 cm thick. Very thin obstacles can
+# slip between the planner's collision-check samples; MoveIt then rejects
+# the plan after the fact and you see random failures that are not the
+# planner's fault. That effect is interesting but it is not this lab.
+
+scenes:
+
+  # A horizontal bar across the middle of the motion. The arm can go over
+  # it or dip under it. A path exists for every planner; whether a planner
+  # finds it inside the time budget is part of what you are measuring.
+  # Compare how they choose and how long the paths get.
+  bar:
+    - id: bar
+      size: [0.04, 0.30, 0.04]
+      xyz: [0.26, 0.05, 0.33]
+
+  # The bar raised, plus a ceiling just above the home pose. Going over is
+  # no longer possible, so every solution has to fold under the bar.
+  overhang:
+    - id: bar
+      size: [0.04, 0.30, 0.04]
+      xyz: [0.26, 0.05, 0.38]
+    - id: ceiling
+      size: [0.60, 0.60, 0.02]
+      xyz: [0.20, 0.00, 0.47]
+
+  # Add your own scene here if you want to. Give it a name and at least two
+  # boxes, and check that both `home` and `reach_low` are still collision
+  # free before you benchmark anything.
+  # mine:
+  #   - id: ...
+  #     size: [...]
+  #     xyz: [...]

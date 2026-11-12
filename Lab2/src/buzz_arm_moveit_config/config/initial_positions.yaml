@@ -1,0 +1,9 @@
+# Default initial positions for buzz_arm's ros2_control fake system
+
+initial_positions:
+  Revolute_1: 0
+  Revolute_2: 1.5708
+  Revolute_3: 1.55334
+  Revolute_4: 1.58825
+  Revolute_5: 1.50098
+  Revolute_RFinger: 0

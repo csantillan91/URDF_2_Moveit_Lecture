@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="buzz_arm">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.097254 -0.0016458 0.017214"
+        rpy="0 0 0" />
+      <mass
+        value="0.50845" />
+      <inertia
+        ixx="0.00087178"
+        ixy="-1.41E-06"
+        ixz="-0.00024544"
+        iyy="0.0027281"
+        iyz="-1.0365E-06"
+        izz="0.0031309" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="1.1384E-05 1.4153E-05 0.009275"
+        rpy="0 0 0" />
+      <mass
+        value="0.18466" />
+      <inertia
+        ixx="6.645E-05"
+        ixy="3.4413E-07"
+        ixz="2.1539E-08"
+        iyy="6.6048E-05"
+        iyz="1.2436E-08"
+        izz="0.00012603" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_1"
+    type="revolute">
+    <origin
+      xyz="0.13407 0 0.06083"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="3.14159"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="-0.057899 -1.3878E-17 0.00055042"
+        rpy="0 0 0" />
+      <mass
+        value="0.061662" />
+      <inertia
+        ixx="2.268E-05"
+        ixy="1.2326E-20"
+        ixz="2.2166E-07"
+        iyy="3.8426E-05"
+        iyz="1.5325E-20"
+        izz="2.0832E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_2"
+    type="revolute">
+    <origin
+      xyz="0.0085986 0.0054667 0.02675"
+      rpy="1.5708 0 0.5236" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="3.05433"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="0.0066591 -0.082336 0.00039702"
+        rpy="0 0 0" />
+      <mass
+        value="0.1307" />
+      <inertia
+        ixx="5.6531E-05"
+        ixy="1.2062E-21"
+        ixz="5.5872E-09"
+        iyy="5.1139E-05"
+        iyz="2.3927E-20"
+        izz="3.2837E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_3"
+    type="revolute">
+    <origin
+      xyz="-0.08668 0 0.00087"
+      rpy="0 0 0" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="3.15905"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Link_4">
+    <inertial>
+      <origin
+        xyz="0.018863 0.012979 0.00041813"
+        rpy="0 0 0" />
+      <mass
+        value="0.082347" />
+      <inertia
+        ixx="1.9474E-05"
+        ixy="8.0561E-07"
+        ixz="-4.5867E-09"
+        iyy="2.3704E-05"
+        iyz="-6.4294E-09"
+        izz="2.4868E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_4"
+    type="revolute">
+    <origin
+      xyz="0 -0.099 -0.00087"
+      rpy="0 0 0" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="3.15905"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Link_5">
+    <inertial>
+      <origin
+        xyz="-0.003947 -0.018259 0.025684"
+        rpy="0 0 0" />
+      <mass
+        value="0.053134" />
+      <inertia
+        ixx="8.5142E-06"
+        ixy="6.9871E-09"
+        ixz="1.3332E-08"
+        iyy="1.0803E-05"
+        iyz="7.4039E-10"
+        izz="1.3976E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_5"
+    type="revolute">
+    <origin
+      xyz="0.06237 0 0.000435"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="Link_4" />
+    <child
+      link="Link_5" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="3.15905"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Joint_RFinger">
+    <inertial>
+      <origin
+        xyz="-0.012502 -0.021105 -0.0060164"
+        rpy="0 0 0" />
+      <mass
+        value="0.0042283" />
+      <inertia
+        ixx="5.3471E-07"
+        ixy="-2.2031E-07"
+        ixz="1.033E-09"
+        iyy="2.7707E-07"
+        iyz="1.3462E-09"
+        izz="8.0771E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Joint_RFinger.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.82353 0.82353 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Joint_RFinger.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Revolute_RFinger"
+    type="revolute">
+    <origin
+      xyz="-0.040562 0 0.044043"
+      rpy="-3.087 -1.5708 -1.627" />
+    <parent
+      link="Link_5" />
+    <child
+      link="Joint_RFinger" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0.62832"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Link_RFinger">
+    <inertial>
+      <origin
+        xyz="0.000839201493488512 -0.00410798201228263 0.00237274137090851"
+        rpy="0 0 0" />
+      <mass
+        value="0.00599736791043469" />
+      <inertia
+        ixx="2.42089492555939E-07"
+        ixy="-2.24614229258946E-07"
+        ixz="4.19118898581568E-07"
+        iyy="1.64318228994709E-06"
+        iyz="9.038809859373E-08"
+        izz="1.52296342251296E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_RFinger.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.823529411764706 0.823529411764706 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_RFinger.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Link_RFinger"
+    type="fixed">
+    <origin
+      xyz="0.019619 -0.0099553 0.0025"
+      rpy="1.0788 0 2.672" />
+    <parent
+      link="Joint_RFinger" />
+    <child
+      link="Link_RFinger" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Joint_LFinger">
+    <inertial>
+      <origin
+        xyz="-0.0122706285367348 -0.0212400470250521 0.00606962107186289"
+        rpy="0 0 0" />
+      <mass
+        value="0.00422828715450971" />
+      <inertia
+        ixx="5.39489654753294E-07"
+        ixy="-2.17439310468456E-07"
+        ixz="1.01821288783147E-09"
+        iyy="2.72285288493111E-07"
+        iyz="1.35741631786404E-09"
+        izz="8.07707307315944E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Joint_LFinger.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.823529411764706 0.823529411764706 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Joint_LFinger.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Mimic_LFinger"
+    type="revolute">
+    <origin
+      xyz="0.040967 0 0.043761"
+      rpy="-0.14 -1.5708 -1.4155" />
+    <parent
+      link="Link_5" />
+    <child
+      link="Joint_LFinger" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0.62832"
+      effort="1.5"
+      velocity="4.5" />
+    <dynamics
+      damping="0.05"
+      friction="0.1" />
+    <mimic
+      joint="Revolute_RFinger"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="Link_LFinger">
+    <inertial>
+      <origin
+        xyz="0.000839201493488123 0.00390818923858993 0.00268914014172311"
+        rpy="0 0 0" />
+      <mass
+        value="0.00599736791043469" />
+      <inertia
+        ixx="2.42089492555934E-07"
+        ixy="1.90881636919817E-07"
+        ixz="4.35518545897441E-07"
+        iyy="1.65663944221304E-06"
+        iyz="-7.9819232118462E-08"
+        izz="1.50950627024703E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_LFinger.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.823529411764706 0.823529411764706 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://buzz_arm_description/meshes/Link_LFinger.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Link_LFinger"
+    type="fixed">
+    <origin
+      xyz="0.019526277278889 -0.0101353093503823 -0.00250000000000036"
+      rpy="1.98386621683787 0 2.66281357610462" />
+    <parent
+      link="Joint_LFinger" />
+    <child
+      link="Link_LFinger" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link name="floor">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 1.0 0.005" />
+      </geometry>
+      <material name="floor_material">
+        <color rgba="0.4 0.4 0.4 0.3" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 1.0 0.005" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_to_floor" type="fixed">
+    <origin xyz="0 0 -0.0025" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="floor" />
+  </joint>
+
+  <!-- Tool centre point: where the two fingertips meet when the gripper is
+       closed. Measured from the finger meshes: 82 mm along Link_5 +Z, with
+       negligible sideways offset. The link has no geometry; it exists only
+       so planners and tf2 have a frame at the business end of the arm. -->
+  <link name="tool0" />
+  <joint name="Link_5_to_tool0" type="fixed">
+    <origin xyz="0 0 0.082" rpy="0 0 0" />
+    <parent link="Link_5" />
+    <child link="tool0" />
+  </joint>
+</robot>
