@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+  buzz_arm for Gazebo.
+
+  Compare with buzz_arm_moveit_config/config/buzz_arm.urdf.xacro, the file
+  MoveIt loads for the mock-hardware demo. Three differences, nothing else:
+
+    1. A `world` link and a fixed joint to base_link, so the arm is bolted to
+       the ground instead of being a free body that gravity can tip over.
+       (MoveIt's virtual joint in the SRDF does the same job for the planner
+       only; Gazebo never reads the SRDF.)
+    2. The <hardware><plugin> line in the ros2_control block names Gazebo's
+       hardware instead of mock_components/GenericSystem. The joint list is
+       identical.
+    3. A <gazebo><plugin> block that loads controller_manager INSIDE the
+       Gazebo process, pointing at the same ros2_controllers.yaml as the demo.
+
+  Resolve it by hand to see what Gazebo and robot_state_publisher get:
+    xacro buzz_arm_sim.urdf.xacro
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="buzz_arm">
+    <xacro:arg name="initial_positions_file"
+               default="$(find buzz_arm_moveit_config)/config/initial_positions.yaml"/>
+    <xacro:arg name="controllers_file"
+               default="$(find buzz_arm_moveit_config)/config/ros2_controllers.yaml"/>
+    <xacro:property name="initial_positions"
+                    value="${xacro.load_yaml('$(arg initial_positions_file)')['initial_positions']}"/>
+
+    <xacro:include filename="$(find buzz_arm_description)/urdf/buzz_arm.urdf"/>
+
+    <!-- 1. Bolt the arm down. -->
+    <link name="world"/>
+    <joint name="world_to_base" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- 2. Same joints as Part 1, different hardware behind them. -->
+    <ros2_control name="buzz_arm_system" type="system">
+        <hardware>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware>
+
+        <xacro:macro name="arm_joint" params="name">
+            <joint name="${name}">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                    <param name="initial_value">${initial_positions[name]}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
+        </xacro:macro>
+        <xacro:arm_joint name="Revolute_1"/>
+        <xacro:arm_joint name="Revolute_2"/>
+        <xacro:arm_joint name="Revolute_3"/>
+        <xacro:arm_joint name="Revolute_4"/>
+        <xacro:arm_joint name="Revolute_5"/>
+        <xacro:arm_joint name="Revolute_RFinger"/>
+
+        <!-- The mimic finger has no servo, but Gazebo simulates it as a real
+             joint, so ros2_control has to know about it to drive it from
+             Revolute_RFinger. State interfaces only: nothing commands it. -->
+        <joint name="Mimic_LFinger">
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
+    <!-- 3. controller_manager runs inside Gazebo, reading the demo's YAML. -->
+    <gazebo>
+        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(arg controllers_file)</parameters>
+        </plugin>
+
+        <!-- 4. The grasp. Gazebo does not simulate friction well enough for a
+             two-finger gripper to hold an object reliably, so grasping is a
+             command: an empty message on /buzz_arm/attach welds the model named
+             `block` (from worlds/table.sdf) to Link_5 where it is right now;
+             /buzz_arm/detach releases it and gravity takes over. The plugin
+             starts ATTACHED, so the launch file publishes one detach after
+             spawning. If the gripper is not at the block when you attach, the
+             block is welded to the palm at whatever offset it had: that is
+             what a bad grasp looks like here. -->
+        <plugin filename="gz-sim-detachable-joint-system" name="gz::sim::systems::DetachableJoint">
+            <parent_link>Link_5</parent_link>
+            <child_model>block</child_model>
+            <child_link>link</child_link>
+            <attach_topic>/buzz_arm/attach</attach_topic>
+            <detach_topic>/buzz_arm/detach</detach_topic>
+            <output_topic>/buzz_arm/attached</output_topic>
+        </plugin>
+    </gazebo>
+</robot>

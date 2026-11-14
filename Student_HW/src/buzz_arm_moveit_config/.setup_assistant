@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: buzz_arm_description
+    relative_path: urdf/buzz_arm.urdf
+  srdf:
+    relative_path: config/buzz_arm.srdf
+  package_settings:
+    author_name: Chris Santillan
+    author_email: csb1@iastate.edu
+    generated_timestamp: 1777349784
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

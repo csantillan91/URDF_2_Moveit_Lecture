@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  The homework wall, spawned into the world by sim.launch.py when wall:=true.
+  The pose comes from the launch file (ros_gz_sim create -x -y -z -Y), not
+  from here. Same box as the `wall` scene in config/wall_scene.yaml, which is
+  what the planner sees; keep the two in sync.
+-->
+<sdf version="1.8">
+  <model name="wall">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry><box><size>0.30 0.04 0.22</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry><box><size>0.30 0.04 0.22</size></box></geometry>
+        <material><ambient>0.6 0.6 0.65 1</ambient><diffuse>0.6 0.6 0.65 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

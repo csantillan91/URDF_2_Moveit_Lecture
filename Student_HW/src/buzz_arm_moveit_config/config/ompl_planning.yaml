@@ -1,0 +1,97 @@
+# OMPL planning pipeline for buzz_arm.
+#
+# MoveIt has no planners of its own. It loads OMPL (the Open Motion Planning
+# Library) as a plugin, and OMPL does the actual sampling-based search in joint
+# space. This file is MoveIt's configuration for that plugin: which OMPL
+# algorithms are exposed, their parameters, and the default per planning group.
+#
+# How this file is found: MoveItConfigsBuilder looks in this package's config/
+# folder for any file named <pipeline>_planning.yaml. If the file is missing it
+# silently falls back to the defaults shipped with moveit_configs_utils
+# (/opt/ros/jazzy/share/moveit_configs_utils/default_configs/ompl_planning.yaml
+# plus ompl_defaults.yaml). This copy exists so the whole pipeline is visible in
+# one place and so you can experiment with planner choice and parameters.
+#
+# A planning pipeline is:  request adapters -> planner plugin -> response adapters
+#
+#   request adapters   fix up the goal before planning (resolve frames, check the
+#                      start state is inside joint limits and collision free).
+#   planner plugin     OMPL. Searches joint space for a collision-free path.
+#   response adapters  post-process the raw path (add timing so it becomes a
+#                      trajectory, validate it, publish it for RViz).
+
+planning_plugins:
+  - ompl_interface/OMPLPlanner
+
+request_adapters:
+  - default_planning_request_adapters/ResolveConstraintFrames
+  - default_planning_request_adapters/ValidateWorkspaceBounds
+  - default_planning_request_adapters/CheckStartStateBounds
+  - default_planning_request_adapters/CheckStartStateCollision
+
+response_adapters:
+  - default_planning_response_adapters/AddTimeOptimalParameterization
+  - default_planning_response_adapters/ValidateSolution
+  - default_planning_response_adapters/DisplayMotionPath
+
+# Planner catalogue. Each key is a name you can pick in the RViz MotionPlanning
+# panel ("Planner" dropdown) or request by name from code. `type` is the OMPL
+# class. Parameters left at 0.0 are chosen automatically by OMPL at setup time.
+#
+# Rough mental model:
+#   RRTConnect   bidirectional tree, fast, the default for arms. Paths are jagged.
+#   RRT          single tree, slower than RRTConnect, good for teaching the idea.
+#   RRTstar      asymptotically optimal: keeps improving the path until timeout.
+#   PRM          builds a roadmap once, then answers queries by graph search.
+#   EST          grows a tree toward sparsely explored regions instead of random targets.
+planner_configs:
+  RRTConnect:
+    type: geometric::RRTConnect
+    range: 0.0          # max step added to the tree per extension, 0 = auto
+  RRT:
+    type: geometric::RRT
+    range: 0.0
+    goal_bias: 0.05     # probability of sampling the goal instead of a random state
+  RRTstar:
+    type: geometric::RRTstar
+    range: 0.0
+    goal_bias: 0.05
+    delay_collision_checking: 1
+  PRM:
+    type: geometric::PRM
+    max_nearest_neighbors: 10
+  PRMstar:
+    type: geometric::PRMstar
+  EST:
+    type: geometric::EST
+    range: 0.0
+    goal_bias: 0.05
+  BiTRRT:
+    type: geometric::BiTRRT
+    range: 0.0
+    temp_change_factor: 0.1
+    init_temperature: 100
+    frountier_threshold: 0.0
+    frountierNodeRatio: 0.1
+    cost_threshold: 1e300
+
+# Per-group settings. The group names come from buzz_arm.srdf.
+buzz_arm:
+  default_planner_config: RRTConnect
+  planner_configs:
+    - RRTConnect
+    - RRT
+    - RRTstar
+    - PRM
+    - PRMstar
+    - EST
+    - BiTRRT
+  # How finely to interpolate when collision checking a motion, as a fraction
+  # of the joint's range. Smaller = safer and slower.
+  longest_valid_segment_fraction: 0.005
+
+gripper:
+  default_planner_config: RRTConnect
+  planner_configs:
+    - RRTConnect
+    - RRT

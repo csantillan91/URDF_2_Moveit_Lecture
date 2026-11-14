@@ -1,0 +1,28 @@
+# The homework wall as MoveIt's planning scene sees it. Same format as
+# Part 2's buzz_arm_planning_lab/config/scenes.yaml: box centre in
+# base_link, full size, rpy in radians.
+#
+# sim_moveit.launch.py wall:=true loads this file a few seconds after
+# move_group starts. By hand:
+#
+#   ros2 run buzz_arm_planning_lab scene_objects load wall --file $(ros2 pkg prefix buzz_arm_sim)/share/buzz_arm_sim/config/wall_scene.yaml
+#   ros2 run buzz_arm_planning_lab scene_objects clear
+#
+# The same wall exists physically in Gazebo: models/wall.sdf, spawned by
+# sim.launch.py at the pose given there. Keep the two in sync: same centre,
+# same size, same yaw. One is what the block can hit; this one is what the
+# planner can see.
+#
+# Geometry: a 4 cm thick, 22 cm tall slab standing on the table, running
+# outward from the arm's base at 60 degrees azimuth (measured about the
+# Revolute_1 axis at x = 0.134, y = 0), from about 15 cm to 45 cm out. The
+# block's start spot (0.39, 0.15) is at 30 degrees, clear of it on one side.
+# Anything past 60 degrees, towards +y, is the far side. It floats 1 mm above
+# the table so that it does not register as touching the robot's `floor` link.
+
+scenes:
+  wall:
+    - id: wall
+      size: [0.30, 0.04, 0.22]
+      xyz: [0.284, 0.260, 0.111]
+      rpy: [0, 0, 1.0472]
